@@ -88,16 +88,6 @@ class PageOne extends StatefulWidget {
 }
 
 class _PageOneState extends State<PageOne> {
-  ScrollController _controller = ScrollController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controller = ScrollController(initialScrollOffset: widget.position);
-    _controller.addListener(_ScrollPosition);
-  }
-
   @override
   Widget build(BuildContext context) {
     return NotificationListener(
@@ -107,7 +97,6 @@ class _PageOneState extends State<PageOne> {
         return true; // needed to return bool. does not change result
       },
       child: SingleChildScrollView(
-        controller: _controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -149,11 +138,6 @@ class _PageOneState extends State<PageOne> {
         ),
       ),
     );
-  }
-
-  void _ScrollPosition() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setDouble("position", _controller.position.pixels);
   }
 }
 
